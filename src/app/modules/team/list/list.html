@@ -1,0 +1,16 @@
+<input type="text" [(ngModel)]="search" (input)="onSearch()" placeholder="Buscar por índice, nombre...">
+
+<div class="pokemon-scroll-wrapper">
+  <div class="pokemon-grid">
+    <div *ngFor="let p of filteredPokemon" (click)="toggleSelect(p)" [class.selected]="isSelected(p)"
+      class="pokemon-card">
+      <img [src]="p.sprites.other.home.front_default" [alt]="p.name">
+      <h4>{{ p.name }}</h4>
+      <p>ID: {{ p.id }}</p>
+    </div>
+  </div>
+</div>
+<p *ngIf="selected.length === 3">Has seleccionado 3 pokémon.</p>
+
+<button type="button" (click)="saveAndContinue()" [disabled]="selected.length !== 3">Guardar</button>
+<button type="button" (click)="navigateToProfile()">Regresar</button>

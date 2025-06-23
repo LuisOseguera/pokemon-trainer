@@ -1,1 +1,52 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --color-primary: #3b82f6;
+  --color-primary-light: #93c5fd;
+  --color-danger: #ef4444;
+  --color-success: #10b981;
+  --color-bg-light: #f1f5f9;
+  --color-text: #333;
+  --border-radius: 6px;
+  --font-size-base: 14px;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  color: var(--color-text);
+}
+
+button {
+  font-size: var(--font-size-base);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+input,
+select,
+textarea {
+  font-size: var(--font-size-base);
+  border-radius: var(--border-radius);
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+}

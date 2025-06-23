@@ -1,0 +1,35 @@
+<div class="header-bar">
+  <img src="/logo-pokemon.svg" alt="Pokémon logo" />
+</div>
+
+
+<div class="profile-info" *ngIf="profile">
+  <img [src]="profile.photo" alt="Trainer photo" />
+  <div class="profile-details">
+    <p><strong>Nombre:</strong> {{ profile.name }}</p>
+    <p><strong>Edad:</strong> {{ getAge(profile.birthDate) }} años</p>
+    <p *ngIf="profile.hobby"><strong>Pasatiempos:</strong> {{ profile.hobby }}</p>
+    <p *ngIf="profile.dui"><strong>DUI:</strong> {{ profile.dui }}</p>
+  </div>
+</div>
+
+<h3>Mis Pokémon</h3>
+<div class="pokemon-team">
+  <div *ngFor="let p of team" class="pokemon-card">
+    <img [src]="p.sprites.other.home.front_default" [alt]="p.name">
+    <h4>{{ p.name }}</h4>
+    <div *ngFor="let stat of p.stats" class="pokemon-stat">
+      <span class="stat-label">{{ stat.stat.name | titlecase }}</span>
+      <div class="stat-bar">
+        <div class="stat-fill" [ngStyle]="{ width: getStatWidth(stat) + '%' }"></div>
+      </div>
+      <small>{{ stat.base_stat }}</small>
+    </div>
+  </div>
+</div>
+
+<div class="actions">
+  <button type="button" (click)="navigateToProfile()">Editar perfil</button>
+  <button type="button" (click)="navigateToTeam()">Editar equipo</button>
+  <button type="button" (click)="resetApp()">Reiniciar</button>
+</div>

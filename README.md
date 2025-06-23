@@ -1,59 +1,70 @@
-# PokemonTrainer
+# Pokémon Trainer
+Aplicación construida con Angular 20 para crear el perfil de un entrenador Pokémon, seleccionar un equipo y mostrar sus estadísticas.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
+### Tecnologías utilizadas
+- Angular 20.
+- RxJS / HTTPClient.
+- SCSS.
+- «localStorage» para guardar los datos temporalmente.
+- «ngx-mask» para validación de documento de identidad.
 
-## Development server
-
-To start a local development server, run:
-
+### Indicaciones de instalación
+#### 1. Cloná el repositorio:
 ```bash
-ng serve
+git clone https://github.com/tu-usuario/pokemon-trainer.git
+cd pokemon-trainer
+```
+#### 2. Instalá las dependencias:1. Cloná el repositorio:
+```bash
+npm install
+```
+#### 3. Ejecutá la aplicación:
+```bash
+npm run start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+### Estructura del proyecto
+```
+src/
+├── app/
+│   ├── modules/    -> Módulos principales (perfil, equipo, resumen).
+│   ├── core/       -> Servicios e interfaces.
+│   └── shared/     -> Componentes que se comparten entre módulos.
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Validaciones incluidas
+- Fecha de nacimiento para determinar si el usuario es mayor de edad.
+- DUI obligatorio si es mayor de edad (con máscara `00000000-0`).
+- Selección de máximo 3 pokémon de la primera generación.
+- Búsqueda por nombre o ID.
+- Visualización de estadísticas con barras de atributos.
+- Virtual scroll.
 
+### Build para producción
 ```bash
-ng generate --help
+npm run build
+```
+### Despliegue con Docker
+#### Dockerfile:
+```dockerfile
+FROM node:18-alpine as builder
+WORKDIR /app
+COPY . .
+RUN npm install && npm run build
+
+FROM nginx:stable-alpine
+COPY --from=builder /app/dist/pokemon-trainer /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+#### Buildear y correr el contenedor:
+```bash
+docker build -t pokemon-trainer .
+docker run -p 8080:80 pokemon-trainer
 ```
 
-## Building
+### Resetear el estado
+Desde la pantalla de resumen, puedes hacer clic en “Reset Progress” para limpiar `localStorage` y comenzar de nuevo.
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Autor
+Luis Alejandro Oseguera Osorto | osegueraluis43@gmail.com | [linkedin.com/in/osegueraluis](https://www.linkedin.com/in/osegueraluis/)
