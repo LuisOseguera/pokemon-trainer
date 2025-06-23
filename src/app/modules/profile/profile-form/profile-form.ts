@@ -40,11 +40,12 @@ export class ProfileForm {
     const age = this.getAge(this.form.value.birthDate);
     this.form.patchValue({ isAdult: age >= 18 });
     const duiControl = this.form.get('dui');
-    console.log(duiControl);
-    console.log('HELLLOOOOOOOO');
     if (duiControl) {
       if (age >= 18) {
-        duiControl.setValidators([Validators.required]);
+        duiControl.setValidators([
+          Validators.required,
+          Validators.pattern(/^\d{13}$/),
+        ]);
       } else {
         duiControl.clearValidators();
       }
