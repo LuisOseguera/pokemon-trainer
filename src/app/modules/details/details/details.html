@@ -1,35 +1,42 @@
-<div class="header-bar">
-  <img src="/logo-pokemon.svg" alt="Pokémon logo" />
-</div>
+<section class="summary-layout">
 
 
-<div class="profile-info" *ngIf="profile">
-  <img [src]="profile.photo" alt="Trainer photo" />
-  <div class="profile-details">
-    <p><strong>Nombre:</strong> {{ profile.name }}</p>
-    <p><strong>Edad:</strong> {{ getAge(profile.birthDate) }} años</p>
-    <p *ngIf="profile.hobby"><strong>Pasatiempos:</strong> {{ profile.hobby }}</p>
-    <p *ngIf="profile.dui"><strong>DUI:</strong> {{ profile.dui }}</p>
-  </div>
-</div>
-
-<h3>Mis Pokémon</h3>
-<div class="pokemon-team">
-  <div *ngFor="let p of team" class="pokemon-card">
-    <img [src]="p.sprites.other.home.front_default" [alt]="p.name">
-    <h4>{{ p.name }}</h4>
-    <div *ngFor="let stat of p.stats" class="pokemon-stat">
-      <span class="stat-label">{{ stat.stat.name | titlecase }}</span>
-      <div class="stat-bar">
-        <div class="stat-fill" [ngStyle]="{ width: getStatWidth(stat) + '%' }"></div>
+  <div class="summary-layout__profile">
+    <div class="summary-greeting__text">¡Hola {{ profile.name }}!</div>
+    <button class="summary-header__edit" (click)="navigateToProfile()">Editar perfil</button>
+    <div class="summary-profile__card">
+      <div class="summary-profile__image">
+        <img [src]="profile.photo || 'assets/avatar-placeholder.png'" alt="Foto de perfil" />
       </div>
-      <small>{{ stat.base_stat }}</small>
+      <div class="summary-profile__info">
+        <p class="summary-profile__meta"><b>Edad:</b> {{ getAge(profile.birthDate) }} años</p>
+        <p class="summary-profile__meta" *ngIf="profile.hobby"><b>Pasatiempo:</b> {{ profile.hobby }}</p>
+        <p class="summary-profile__meta" *ngIf="profile.dui"><b>DUI:</b> {{ profile.dui }}</p>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="actions">
-  <button type="button" (click)="navigateToProfile()">Editar perfil</button>
-  <button type="button" (click)="navigateToTeam()">Editar equipo</button>
-  <button type="button" (click)="resetApp()">Reiniciar</button>
-</div>
+  <div class="summary-layout__team">
+    <div class="summary-header__section">
+      <h2 class="summary-header__title">Mis Pokémon</h2>
+      <button class="summary-header__edit" (click)="navigateToTeam()">Editar</button>
+    </div>
+    <div class="summary-team__grid">
+      <div class="summary-card" *ngFor="let p of team">
+        <div class="summary-card__img-group">
+          <img [src]="p.sprites.other.home.front_default" [alt]="p.name" class="summary-card__img" />
+          <h3 class="summary-card__title">{{ p.name }}</h3>
+        </div>
+        <div class="summary-card__stats">
+          <div class="summary-stat" *ngFor="let stat of p.stats">
+            <div class="summary-stat__label">{{ translateStat(stat.stat.name) }}: {{ stat.base_stat }}</div>
+            <div class="summary-stat__bar">
+              <div class="summary-stat__fill" [style.width.%]="stat.base_stat * 0.5"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

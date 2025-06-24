@@ -63,4 +63,18 @@ export class Details implements OnInit {
     }
     return age;
   }
+
+  // Stats translations to Spanish:
+  translateStat(statName: string): string {
+    const translations: { [key: string]: string } = {
+      hp: 'Salud',
+      attack: 'Ataque',
+      defense: 'Defensa',
+      'special-attack': 'Ataque Especial',
+      'special-defense': 'Defensa Especial',
+      speed: 'Velocidad',
+    };
+
+    return translations[statName] || statName;
+  }
 }

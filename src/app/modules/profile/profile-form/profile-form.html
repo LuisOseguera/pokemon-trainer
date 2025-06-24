@@ -1,29 +1,36 @@
-<form [formGroup]="form">
+<div class="profile-wrapper">
 
-  <label>
-    Nombre *:
-    <input type="text" formControlName="name">
-  </label>
+  <div class="profile-sidebar">
+    <h2>Imagen de perfil</h2>
+    <img [src]="form.value.photo || 'avatar-placeholder.svg'" alt="Trainer photo" />
+    <label class="upload-btn">
+      Adjunta una foto
+      <input type="file" (change)="onPhotoSelected($event)">
+    </label>
+  </div>
 
-  <label>
-    Fecha de nacimiento *:
-    <input type="date" formControlName="birthDate" (change)="updateAdultStatus()">
-  </label>
+  <div class="profile-info">
+    <form [formGroup]="form">
+      <h1>Tu información</h1>
+      <p>Completa la siguiente información para completar tu perfil:</p>
+      <label>
+        Nombre *:
+        <input type="text" formControlName="name">
+      </label>
+      <label>
+        Fecha de nacimiento *:
+        <input type="date" formControlName="birthDate" (change)="updateAdultStatus()">
+      </label>
+      <label>
+        Pasatiempos:
+        <input type="text" formControlName="hobby">
+      </label>
+      <label *ngIf="form.value.isAdult">
+        DUI *:
+        <input type="text" formControlName="dui" mask="0000-0000-00000">
+      </label>
+      <button type="button" (click)="submit()" [disabled]="form.invalid">Continuar</button>
+    </form>
+  </div>
 
-  <label>
-    Pasatiempos:
-    <input type="text" formControlName="hobby">
-  </label>
-
-  <label>
-    Foto *:
-    <input type="file" (change)="onPhotoSelected($event)">
-  </label>
-
-  <label *ngIf="form.value.isAdult">
-    DUI *:
-    <input type="text" formControlName="dui" mask="0000-0000-00000">
-  </label>
-
-  <button type="button" (click)="submit()" [disabled]="form.invalid">Continuar</button>
-</form>
+</div>

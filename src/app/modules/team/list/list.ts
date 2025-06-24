@@ -5,6 +5,7 @@ import { Pokemon } from '../../../core/services/pokemon';
 import { AppState } from '../../../core/services/app-state';
 import { Router } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { PokemonDetails, PokemonStat } from '../../../core/models/pokemon';
 
 @Component({
   selector: 'app-list',
@@ -20,6 +21,10 @@ export class List implements OnInit {
   selected: any[] = [];
   search = '';
 
+  // Variables to get profile info:
+  profile: any;
+  team: PokemonDetails[] = [];
+
   constructor(
     private pokemonService: Pokemon,
     private appState: AppState,
@@ -27,10 +32,13 @@ export class List implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.pokemonService.getFirstGeneration().subscribe((data) => { // Get all Pokémon to list.
+    this.pokemonService.getFirstGeneration().subscribe((data) => {
+      // Get all Pokémon to list.
       this.allPokemon = data;
       this.filteredPokemon = data;
     });
+    this.profile = this.appState.getProfileData();
+    this.team = this.appState.getSelectedPokemon();
   }
 
   // Search settings by ID or name:
@@ -64,12 +72,15 @@ export class List implements OnInit {
     }
   }
 
-  goBack() {
-    this.router.navigate(['/summary']);
-  }
-
-  // Returns to profile view:
-  navigateToProfile() {
-    this.router.navigate(['/profile']);
+  // Returns age in years according birthdate:
+  getAge(birthDate: string): number {
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+    return age;
   }
 }

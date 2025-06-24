@@ -1,16 +1,21 @@
-<input type="text" [(ngModel)]="search" (input)="onSearch()" placeholder="Buscar por índice, nombre...">
+<div class="pokemon-select-wrapper">
+  <h1>Selecciona tu equipo</h1>
 
-<div class="pokemon-scroll-wrapper">
-  <div class="pokemon-grid">
-    <div *ngFor="let p of filteredPokemon" (click)="toggleSelect(p)" [class.selected]="isSelected(p)"
-      class="pokemon-card">
-      <img [src]="p.sprites.other.home.front_default" [alt]="p.name">
-      <h4>{{ p.name }}</h4>
-      <p>ID: {{ p.id }}</p>
+  <input class="search-input" type="text" placeholder="Buscar por nombre o ID" [(ngModel)]="search"
+    (input)="onSearch()" />
+
+  <div class="pokemon-scroll-wrapper">
+    <div class="pokemon-grid">
+      <div *ngFor="let p of filteredPokemon" class="pokemon-card" [class.selected]="isSelected(p)"
+        (click)="toggleSelect(p)">
+        <img [src]="p.sprites.other.home.front_default" [alt]="p.name" />
+        <h4>{{ p.name }}</h4>
+        <p>ID: {{ p.id }}</p>
+      </div>
     </div>
   </div>
-</div>
-<p *ngIf="selected.length === 3">Has seleccionado 3 pokémon.</p>
 
-<button type="button" (click)="saveAndContinue()" [disabled]="selected.length !== 3">Guardar</button>
-<button type="button" (click)="navigateToProfile()">Regresar</button>
+  <button class="confirm-button" [disabled]="selected.length !== 3" (click)="saveAndContinue()">
+    Confirmar equipo
+  </button>
+</div>
