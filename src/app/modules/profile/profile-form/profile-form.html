@@ -29,6 +29,10 @@
         DUI *:
         <input type="text" formControlName="dui" mask="0000-0000-00000">
       </label>
+      <label *ngIf="!form.value.isAdult">
+        Carnet de minoridad:
+        <input formControlName="minorId" type="text" placeholder="Opcional" />
+      </label>
       <button type="button" (click)="submit()" [disabled]="form.invalid">Continuar</button>
     </form>
   </div>

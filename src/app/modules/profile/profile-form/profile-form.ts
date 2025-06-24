@@ -32,6 +32,7 @@ export class ProfileForm {
       photo: ['', Validators.required],
       dui: [''],
       isAdult: [false],
+      minorId: [''],
     });
   }
 

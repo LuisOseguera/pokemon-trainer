@@ -9,16 +9,16 @@ Aplicación construida con Angular 20 para crear el perfil de un entrenador Pok�
 - «ngx-mask» para validación de documento de identidad.
 
 ### Indicaciones de instalación
-#### 1. Cloná el repositorio:
+1. Cloná el repositorio:
 ```bash
 git clone https://github.com/tu-usuario/pokemon-trainer.git
 cd pokemon-trainer
 ```
-#### 2. Instalá las dependencias:1. Cloná el repositorio:
+2. Instalá las dependencias:1. Cloná el repositorio:
 ```bash
 npm install
 ```
-#### 3. Ejecutá la aplicación:
+3. Ejecutá la aplicación:
 ```bash
 npm run start
 ```
@@ -34,7 +34,7 @@ src/
 
 ### Validaciones incluidas
 - Fecha de nacimiento para determinar si el usuario es mayor de edad.
-- DUI obligatorio si es mayor de edad (con máscara `00000000-0`).
+- DUI obligatorio si es mayor de edad (con máscara `0000-0000-00000`).
 - Selección de máximo 3 pokémon de la primera generación.
 - Búsqueda por nombre o ID.
 - Visualización de estadísticas con barras de atributos.
@@ -45,18 +45,15 @@ src/
 npm run build
 ```
 ### Despliegue con Docker
-#### Dockerfile:
-```dockerfile
-FROM node:18-alpine as builder
-WORKDIR /app
-COPY . .
-RUN npm install && npm run build
-
-FROM nginx:stable-alpine
-COPY --from=builder /app/dist/pokemon-trainer /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+1. Construir la imagen:
+```bash
+docker build -t pokemon-trainer .
 ```
+2. Ejecutar la imagen:
+```bash
+docker run -p 8080:80 pokemon-trainer
+```
+
 #### Buildear y correr el contenedor:
 ```bash
 docker build -t pokemon-trainer .
